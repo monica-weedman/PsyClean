@@ -21,7 +21,7 @@ fraud_check(
 
 \item{relID}{Name of RelevantID fraud variable; defaults to Q_RelevantIDFraudScore, assuming Qualtrics naming scheme}
 
-\item{rclimit}{reCAPTCHA yhreshold to use for flagging responses; defaults to 0.5; cases scoring less than this value will be flagged}
+\item{rclimit}{reCAPTCHA threshold to use for flagging responses; defaults to 0.5; cases scoring less than this value will be flagged}
 
 \item{relIDlimit}{RelevantID threshold to use for flagging responses; defaults to 30; cases scoring greater than or equal to this value will be flagged}
 

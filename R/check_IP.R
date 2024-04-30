@@ -32,10 +32,6 @@ ip_check <- function(data, ip, api_key) {
   return(data)
 }
 
-#TEST
-test_ip <- ip_check(test_data, "IPAddress", "MjEwNTg6cGV4dE9ySGVBeTlMaktLeEswWEJwS2NsenBJM29TWnE=")
-
-
 #' Filter data based on IPcountry and IPflag 
 #' @param data Dataframe to filter
 #' @param cval country code value in 'IPcountry' column you would like to filter by 
@@ -63,11 +59,3 @@ ip_filter <- function(data, cval, fval, country="IPcountry", flag="IPflag", excl
     return(ip_flagged)
   }
 }
-
-#TEST (exclude = FALSE, intersect= FALSE)
-ex_f_inter_f <- ip_filter(test_ip,cval="US",fval=0)
-#TEST (exclude = FALSE, intersect= TRUE)
-ex_f_inter_t <- ip_filter(test_ip,cval="US",fval=0, intersect=TRUE)
-#TEST (exclude = TRUE, intersect= FALSE)
-ex_t_inter_f <- ip_filter(test_ip,cval="US",fval=0, exclude=TRUE)
-
