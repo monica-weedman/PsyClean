@@ -2,7 +2,7 @@ Package: PsyClean
 Type: Package
 Title: PsyFresh and PsyClean: Data Cleaning for Psych Science
 Description: For use in cleaning data from human subjects
-Version: 0.1
+Version: 0.1.1
 Encoding: UTF-8
 Date: 2024-04-30
 Author: Monica V Weedman <monica_weedman1@baylor.edu>

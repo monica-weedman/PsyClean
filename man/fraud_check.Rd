@@ -10,24 +10,27 @@ fraud_check(
   relID = "Q_RelevantIDFraudScore",
   rclimit = 0.5,
   relIDlimit = 30,
-  exclude = FALSE,
+  reason = "Likely fraudulent response",
   intersect = FALSE
 )
 }
 \arguments{
-\item{data}{Dataframe containing bot detection variables}
+\item{data}{Dataframe}
 
 \item{recaptcha}{Name of reCAPTCHA variable; defaults to Q_RecaptchaScore, assuming Qualtrics naming scheme}
 
 \item{relID}{Name of RelevantID fraud variable; defaults to Q_RelevantIDFraudScore, assuming Qualtrics naming scheme}
 
-\item{rclimit}{reCAPTCHA threshold to use for flagging responses; defaults to 0.5; cases scoring less than this value will be flagged}
+\item{rclimit}{reCAPTCHA threshold used for exclusion; defaults to 0.5; cases scoring less than this value will be excluded}
 
-\item{relIDlimit}{RelevantID threshold to use for flagging responses; defaults to 30; cases scoring greater than or equal to this value will be flagged}
+\item{relIDlimit}{RelevantID threshold used for exclusion; defaults to 30; cases scoring greater than or equal to this value will be excluded}
 
-\item{exclude}{Default = FALSE = identifies cases that are likely bots based on recaptcha/relID thresholds set; TRUE = returns data excluding likely bots}
+\item{reason}{Character strong annotating reason for exclusion; defaults to "Likely fraudulent response"}
 
 \item{intersect}{Default = FALSE = identifies cases based on recaptcha OR relID; TRUE = identifies cases based on recaptcha AND relID}
+}
+\value{
+Dataframe with exclude and reason columns
 }
 \description{
 Screen for bots using Qualtrics bot detection parameters

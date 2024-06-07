@@ -31,31 +31,3 @@ ip_check <- function(data, ip, api_key) {
   data$IPflag <- blocks
   return(data)
 }
-
-#' Filter data based on IPcountry and IPflag 
-#' @param data Dataframe to filter
-#' @param cval country code value in 'IPcountry' column you would like to filter by 
-#' @param fval value in 'IPflag' column you would like to filter by
-#' @param country name of variable containing country codes (must be enclosed in double quotes); defaults to "IPcountry"
-#' @param flag name of variable containing flags (must be enclosed in double quotes); defaults to "IPflag"
-#' @param exclude Default = FALSE = returns list of cases with specified country code and/or flag values; TRUE = returns data excluding cases with specified country code or flag values
-#' @param intersect Default = FALSE = identifies cases not specified country code OR not specified flag; TRUE = identifies cases not specified country code AND not specified flag
-#' @return Filtered data excluding cases with specified IPcountry or IPflag values
-#' @export
-
-ip_filter <- function(data, cval, fval, country="IPcountry", flag="IPflag", exclude=FALSE, intersect=FALSE) {
-  if (intersect) {
-    ip_flagged <- data[(data[[country]] != cval & data[[flag]] != fval), ]
-    print(paste("Cases identified as non-", cval, "and with flag code other than",fval,":", nrow(ip_flagged)))
-  } else {
-    ip_flagged <- data[(data[[country]] != cval | data[[flag]] != fval), ]
-    print(paste("Cases identified as non-", cval, "or with flag code other than",fval,":", nrow(ip_flagged)))
-  }
-  if (exclude) {
-    filtered_data <- data[!rownames(data) %in% rownames(ip_flagged),]
-    print(paste("Returning data excluding IP flagged cases. Count:", nrow(filtered_data)))
-    return(filtered_data)
-  } else {
-    return(ip_flagged)
-  }
-}
