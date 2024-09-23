@@ -1,34 +1,34 @@
 #' Recode and reverse score items
 #' @param data Dataframe to create codebook
 #' @param vars Name of item to be reverse scored
-#' @param old_values List of values present in variable
-#' @param new_values Default = NULL
+#' @param old List of values present in variable
+#' @param new Default = NULL
 #' @param updatecb Default=TRUE
 #' @param cbname Default = "codebook"; Name of codebook to update
 #' @return Dataframe with recoded variables 
 #' @export
 
-recode_values <- function(data, vars, old_values, new_values = NULL, updatecb = TRUE, cbname = "codebook") {
-  # Check if new_values is provided or not, store this condition
-  new_values_was_null <- is.null(new_values)
-  # If new_values is not provided, reverse old_values
-  if (new_values_was_null) {
-    new_values <- rev(old_values)
+rescore <- function(data, vars, old, new = NULL, updatecb = TRUE, cbname = "codebook") {
+  # Check if new is provided or not, store this condition
+  new_was_null <- is.null(new)
+  # If new is not provided, reverse old
+  if (new_was_null) {
+    new <- rev(old)
   }
   
-  # Check if the lengths of old_values and new_values are the same
-  if (length(old_values) != length(new_values)) {
-    stop("The length of 'old_values' and 'new_values' must be the same.")
+  # Check if the lengths of old and new are the same
+  if (length(old) != length(new)) {
+    stop("The length of 'old' and 'new' must be the same.")
   }
-  recode_list <- setNames(new_values, old_values)
+  recode_list <- setNames(new, old)
   # Loop through each variable (var) in vars and apply the recoding
   for (var in vars) {
-    if (new_values_was_null) {
-      # Create a new column with recoded values when new_values was NULL
+    if (new_was_null) {
+      # Create a new column with recoded values when new was NULL
       new_var <- paste0(var, "_r")
       data[[new_var]] <- recode(data[[var]], !!!recode_list, .missing = NULL)
     } else {
-      # Recode the original variable if new_values was provided
+      # Recode the original variable if new was provided
       data[[var]] <- recode(data[[var]], !!!recode_list, .missing = NULL)
     }
   }
@@ -37,7 +37,7 @@ recode_values <- function(data, vars, old_values, new_values = NULL, updatecb = 
       existing_cb <- get(cbname, envir = .GlobalEnv)
       
       for (var in vars) {
-        if (new_values_was_null) {
+        if (new_was_null) {
           # Create a new row for the reversed variable
           new_var <- paste0(var, "_r")
           revitems <- data.frame(
