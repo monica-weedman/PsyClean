@@ -4,7 +4,7 @@
 \alias{ip_check}
 \title{Check IP addresses using IPhub API}
 \usage{
-ip_check(data, ip, api_key)
+ip_check(data, ip, api_key, updatecb = TRUE, cbname = "codebook")
 }
 \arguments{
 \item{data}{Dataframe containing IP addresses you want to check}
@@ -12,6 +12,10 @@ ip_check(data, ip, api_key)
 \item{ip}{Name of column in Dataframe containing IP addresses}
 
 \item{api_key}{Your API key obtained from IPhub}
+
+\item{updatecb}{Default =TRUE; Updates existing codebook with IPflag and IPcountry variables}
+
+\item{cbname}{Default = "codebook"; Name of codebook to update}
 }
 \value{
 Dataframe with 2 new columns (IPflag and IPcountry). IPflag contains values 0,1, or 2. IPcountry contains country code of IP address.
