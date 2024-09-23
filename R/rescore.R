@@ -9,6 +9,10 @@
 #' @export
 
 rescore <- function(data, vars, old, new = NULL, updatecb = TRUE, cbname = "codebook") {
+  if ("dplyr" %in% installed.packages() == FALSE) {
+    install.packages("dplyr")
+  }
+  library(dplyr)
   # Check if new is provided or not, store this condition
   new_was_null <- is.null(new)
   # If new is not provided, reverse old
@@ -26,10 +30,10 @@ rescore <- function(data, vars, old, new = NULL, updatecb = TRUE, cbname = "code
     if (new_was_null) {
       # Create a new column with recoded values when new was NULL
       new_var <- paste0(var, "_r")
-      data[[new_var]] <- recode(data[[var]], !!!recode_list, .missing = NULL)
+      data[[new_var]] <- dplyr::recode(data[[var]], !!!recode_list, .missing = NULL)
     } else {
       # Recode the original variable if new was provided
-      data[[var]] <- recode(data[[var]], !!!recode_list, .missing = NULL)
+      data[[var]] <- dplyr::recode(data[[var]], !!!recode_list, .missing = NULL)
     }
   }
   if (updatecb) {
